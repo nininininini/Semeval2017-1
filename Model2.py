@@ -1,12 +1,12 @@
 from keras.models import Sequential
 from keras.layers.embeddings import Embedding
 from keras.layers.recurrent import LSTM
-from keras.layers.core import Merge, Dense, Dropout
+from keras.layers.core import Merge, Dense
 import numpy as np
 
 
 # Description of the used model
-class TGVModel:
+class TGVModel2:
     # word_network/vocab
     # tags_network/vocab
     def __init__(self, word_embedding_matrix, tags_embedding_matrix, trigram=25, word=64, tags=10, combining=32):
@@ -28,9 +28,7 @@ class TGVModel:
                                     trainable=True)
         model.add(embedding_layer)
         # memory layer
-        model.add(Dropout(0.2))
         model.add(LSTM(lstm_output_size))
-        model.add(Dropout(0.2))
         return model
 
     # define random embedded layer
@@ -44,9 +42,7 @@ class TGVModel:
                                     trainable=True)
         model.add(embedding_layer)
         # memory layer
-        model.add(Dropout(0.2))
         model.add(LSTM(lstm_output_size))
-        model.add(Dropout(0.2))
         return model
 
     # concatenate the lower levels
