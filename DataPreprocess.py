@@ -50,7 +50,7 @@ with open(training_data) as data:
               tags_spans]
     # in case there is nothing
     for i in range(len(tags_e)):
-        if tags_e[i]:
+        if not tags_e[i]:
             tags_e[i] = [tag_dictionary['@UNKNOWN']]
     # preprocess sentences
     word_spans = [re.sub(r'[[:punct:]]', ' ', re.sub(r'\$[A-Z]*', 'company', ' '.join(example))).lower().split() for
@@ -59,7 +59,7 @@ with open(training_data) as data:
     word_e = [[word_dictionary[t] if t in word_dictionary else word_dictionary['@UNKNOWN'] for t in example] for example
               in word_spans]
     for i in range(len(word_e)):
-        if word_e[i]:
+        if not word_e[i]:
             sys.stdout.write(str(word_e[i]) + '\n' +str(i)+'\n')
             word_e[i] = [word_dictionary['@UNKNOWN']]
             sys.stdout.write(str(word_e[i]) + '\n')
@@ -68,7 +68,7 @@ with open(training_data) as data:
     trigrams_e = [[trigram_dictionary[t] if t in trigram_dictionary else trigram_dictionary['OTH']
                    for e in example for t in e] for example in grams]
     for i in range(len(trigrams_e)):
-        if trigrams_e[i]:
+        if not trigrams_e[i]:
             trigrams_e[i] = [trigram_dictionary['OTH']]
 
     sys.stdout.write(str(trigrams_e[71]) + '\n')
