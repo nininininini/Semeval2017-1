@@ -8,6 +8,7 @@ import json
 word_embeddings = sys.argv[1]
 tag_embeddings = sys.argv[2]
 training_data = sys.argv[3]
+output_file = sys.argv[4]
 
 # load word embeddings matrix
 word_vocabulary, word_embedding_matrix = load_gensim_w2v(word_embeddings)
@@ -58,5 +59,5 @@ with open(training_data) as data:
 
 # dump the data to a file
 # we no longer need the dictionaries
-with open("tmp.pickle", "wb") as f:
+with open(output_file, "wb") as f:
     pickle.dump((word_embedding_matrix,tag_embedding_matrix, trigrams_e, word_e, tags_e, golden), f)
