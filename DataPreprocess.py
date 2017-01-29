@@ -46,12 +46,12 @@ with open(training_data) as data:
     # concatenate the sublists in training examples
     tags_spans = [[t for sublist in lists for t in sublist] for lists in tags_spans]
     # extract tags indices in the vocabulary
-    tags_e = [[tag_dictionary[t] for t in example if t in tag_dictionary] for example in tags_spans]
+    tags_e = [[tag_dictionary[t] if t in tag_dictionary else tag_dictionary['@UNKNOWN'] for t in example] for example in tags_spans]
     # preprocess sentences
     word_spans = [re.sub(r'[[:punct:]]', ' ', re.sub(r'\$[A-Z]*', 'company', ' '.join(example))).lower().split() for
                   example in spans]
     # extract words indices in the vocabulary
-    word_e = [[word_dictionary[t] for t in example if t in word_dictionary] for example in word_spans]
+    word_e = [[word_dictionary[t] if t in word_dictionary else word_dictionary['@UNKNOWN'] for t in example] for example in word_spans]
     # get trigrams in the sentences
     grams = [[[sentence[i:i + 3] for i in range(len(sentence) - 3 + 1)] for sentence in span] for span in spans]
     trigrams_e = [[trigram_dictionary[t] if t in trigram_dictionary else trigram_dictionary['OTH']
