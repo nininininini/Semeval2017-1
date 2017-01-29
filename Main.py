@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
+import tensorflow as tf
 from Model import TGVModel
-from Functions import UDpipe_analyser
 from scipy.spatial.distance import cosine
 from numpy.linalg import norm
-import regex as re
 import numpy as np
 import pickle
 import sys
