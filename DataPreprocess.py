@@ -60,7 +60,7 @@ with open(training_data) as data:
               in word_spans]
     for i in range(len(word_e)):
         if word_e[i]:
-            sys.stdout.write(str(word_e[i]) + '\n' +i+'\n')
+            sys.stdout.write(str(word_e[i]) + '\n' +str(i)+'\n')
             word_e[i] = [word_dictionary['@UNKNOWN']]
             sys.stdout.write(str(word_e[i]) + '\n')
     # get trigrams in the sentences
