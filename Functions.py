@@ -14,6 +14,9 @@ def load_gensim_w2v(filename):
         vocab = [w for (w, _) in embedding_model.vocab.items()]
         # extract weights for keras layer
         embedding_weights = [np.array([embedding_model[w] for w in vocab])]
+        # append unknown
+        vocab.append('@UNKNOWN')
+        embedding_weights = [np.vstack((embedding_weights[0], np.array([0] * embedding_weights[0][0], dtype=np.float32)))]
         return vocab, embedding_weights
     except:
         out.write('Gensim Word2Vec file is missing\n')
