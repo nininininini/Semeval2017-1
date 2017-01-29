@@ -52,6 +52,9 @@ with open(training_data) as data:
                   example in spans]
     # extract words indices in the vocabulary
     word_e = [[word_dictionary[t] if t in word_dictionary else word_dictionary['@UNKNOWN'] for t in example] for example in word_spans]
+    for i in range(len(word_e)):
+        if word_e[i]:
+            word_e[i] = [word_dictionary['@UNKNOWN']]
     # get trigrams in the sentences
     grams = [[[sentence[i:i + 3] for i in range(len(sentence) - 3 + 1)] for sentence in span] for span in spans]
     trigrams_e = [[trigram_dictionary[t] if t in trigram_dictionary else trigram_dictionary['OTH']
