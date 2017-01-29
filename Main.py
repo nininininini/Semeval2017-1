@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import tensorflow as tf
 from Model import TGVModel
 from scipy.spatial.distance import cosine
 from numpy.linalg import norm
