@@ -59,4 +59,4 @@ with open(training_data) as data:
 # dump the data to a file
 # we no longer need the dictionaries
 with open("tmp.pickle", "wb") as f:
-    pickle.dump((word_embedding_matrix,tag_embedding_matrix, trigrams_e, word_e, tags_e), f)
+    pickle.dump((word_embedding_matrix,tag_embedding_matrix, trigrams_e, word_e, tags_e, golden), f)

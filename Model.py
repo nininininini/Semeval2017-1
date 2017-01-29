@@ -2,7 +2,6 @@ from keras.models import Sequential
 from keras.layers.embeddings import Embedding
 from keras.layers.recurrent import LSTM
 from keras.layers.core import Merge, Dense
-from Functions import load_gensim_w2v
 import numpy as np
 
 
@@ -10,30 +9,30 @@ import numpy as np
 class TGVModel:
     # word_network/vocab
     # tags_network/vocab
-    def __init__(self, word_embeddings, tags_embeddings):
-        self.trigram_model = self.random_first_level_network()
-        self.word_vocab, self.word_network = self.first_level_network(word_embeddings)
-        self.tags_vocab, self.tags_network = self.first_level_network(tags_embeddings)
-        self.model = self.second_level_network(self.trigram_model, self.word_network, self.tags_network)
+    def __init__(self, word_embedding_matrix, tags_embedding_matrix, trigram=25, word=64, tags=10, combining=32):
+        self.trigram_model = self.random_first_level_network(lstm_output_size=trigram)
+        self.word_network = self.first_level_network(word_embedding_matrix, lstm_output_size=word)
+        self.tags_network = self.first_level_network(tags_embedding_matrix, lstm_output_size=tags)
+        self.model = self.second_level_network(self.trigram_model, self.word_network, self.tags_network,
+                                               combining_layer=combining)
 
     # define first level model
-    def first_level_network(self, filename, lstm_output_size=64):
+    def first_level_network(self, embedding_matrix, lstm_output_size=64):
         # load embeddings from the model
         # get vocabulary and weights
-        vocabulary, embedding_matrix = load_gensim_w2v(filename)
         model = Sequential()
         # embedding (input) layer
-        embedding_layer = Embedding(len(vocabulary),  # vocabulary size \
+        embedding_layer = Embedding(len(embedding_matrix[0]),  # vocabulary size \
                                     len(embedding_matrix[0][0]),  # output - embedding dimension  \
                                     weights=embedding_matrix,  # weight martix of embeddings \
                                     trainable=True)
         model.add(embedding_layer)
         # memory layer
         model.add(LSTM(lstm_output_size))
-        return vocabulary, model
+        return model
 
     # define random embedded layer
-    def random_first_level_network(self, embedding_dimension=50, length=658504, lstm_output_size=64):
+    def random_first_level_network(self, embedding_dimension=50, length=658504, lstm_output_size=25):
         model = Sequential()
         # embedding (input) layer
         embedding_layer = Embedding(length,  # number of trigrams \
@@ -47,7 +46,7 @@ class TGVModel:
         return model
 
     # concatenate the lower levels
-    def second_level_network(self, grams, words, tags):
+    def second_level_network(self, grams, words, tags, combining_layer=32):
         # concatenate first layer models
         cat_model = Sequential()
         cat_model.add(Merge([grams, words, tags], mode='concat', concat_axis=1))
@@ -55,7 +54,7 @@ class TGVModel:
         final_model = Sequential()
         final_model.add(cat_model)
         # add a layer before outputing yet
-        final_model.add(Dense(35, activation='sigmoid'))
+        final_model.add(Dense(combining_layer, activation='sigmoid'))
         final_model.add(Dense(1, activation='sigmoid'))
         # final evaluation is based on the cosine similarity
         final_model.compile(loss='mean_squared_error', optimizer='adam')
