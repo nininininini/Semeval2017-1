@@ -22,7 +22,7 @@ def load_gensim_w2v(filename):
 # return the sentence analysis
 class UDpipe_analyser:
     def __init__(self):
-        self.model = Model.load('/opt/udpipe/english-ud-1.2-160523.udpipe')
+        self.model = Model.load('english-ud-1.2-160523.udpipe')
         self.pipeline = Pipeline(self.model, 'horizontal', Pipeline.DEFAULT, Pipeline.DEFAULT, 'conllu')
 
     def udpipe_analysis(self, sent):
