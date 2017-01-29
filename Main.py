@@ -16,7 +16,7 @@ m = TGVModel(word_embedding_matrix, tag_embedding_matrix)
 
 # first 1530 are the trains
 # 1530: are the training data
-for e in range(100):
+for e in range(50):
     for p in range(1530):
         # this should be improved but Theano gave me chronic depression
         m.model.fit([np.array([trigrams_e[p]]), np.array([word_e[p]]), np.array([tags_e[p]])],
