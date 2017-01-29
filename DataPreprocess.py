@@ -69,10 +69,6 @@ with open(training_data) as data:
         if not trigrams_e[i]:
             trigrams_e[i] = [trigram_dictionary['OTH']]
 
-    sys.stdout.write(str(trigrams_e[71]) + '\n')
-    sys.stdout.write(str(word_e[71]) + '\n')
-    sys.stdout.write(str(tags_e[71]) + '\n')
-
 # dump the data to a file
 # we no longer need the dictionaries
 with open(output_file, "wb") as f:
