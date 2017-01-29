@@ -30,8 +30,9 @@ characters = ['T', 'G', 'W', 'o', 'a', '$', 'l', '7', 'S', '/', '3', 'x', 'r', '
               'â', 'H', 'u', 'q', 's', 'Z', 'p', 't', 'J', "'", 'P', 'Q', 'b', '*', '%', ':', '9', 'c', ')', 'g', 'i',
               '™', 'M', ',']
 all_trigrams = [a + b + c for a in characters for b in characters for c in characters]
-# append OTHER trigram category
-all_trigrams.append('OTH')
+# pre-pend OTHER trigram category
+# so it will be zero - useful for padding - useful for faster training
+all_trigrams.index(0,'OTH')
 # create a index-dictionary of trigrams
 trigram_dictionary = {k: v for v, k in enumerate(all_trigrams)}
 

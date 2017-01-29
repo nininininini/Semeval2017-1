@@ -14,9 +14,9 @@ def load_gensim_w2v(filename):
         vocab = [w for (w, _) in embedding_model.vocab.items()]
         # extract weights for keras layer
         embedding_weights = [np.array([embedding_model[w] for w in vocab])]
-        # append unknown
-        vocab.append('@UNKNOWN')
-        embedding_weights = [np.vstack((embedding_weights[0], np.array([0] * embedding_weights[0][0], dtype=np.float32)))]
+        # pre-pend unknown, so that it is at position 0
+        vocab.insert(0, '@UNKNOWN')
+        embedding_weights = [np.vstack((np.array([0] * embedding_weights[0][0], dtype=np.float32), embedding_weights[0]))]
         return vocab, embedding_weights
     except:
         out.write('Gensim Word2Vec file is missing\n')
@@ -25,7 +25,7 @@ def load_gensim_w2v(filename):
 # return the sentence analysis
 class UDpipe_analyser:
     def __init__(self):
-        self.model = Model.load('english-ud-1.2-160523.udpipe')
+        self.model = Model.load('/opt/udpipe/english-ud-1.2-160523.udpipe')
         self.pipeline = Pipeline(self.model, 'horizontal', Pipeline.DEFAULT, Pipeline.DEFAULT, 'conllu')
 
     def udpipe_analysis(self, sent):
