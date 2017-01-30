@@ -33,7 +33,7 @@ for e in [1, 1, 3, 5, 10, 15, 15, 25, 25, 25, 25, 25, 25]:
     # testing data
     golden_values = [x * 2 - 1 for x in golden[1530:]]
     # use cross-validation later
-    prediction = m.predict([trigrams_e[:1530], word_e[:1530], tags_e[:1530]]) * 2 - 1
+    prediction = m.predict([trigrams_e[1530:], word_e[1530:], tags_e[1530:]]) * 2 - 1
     prediction = prediction * 2 - 1
     sys.stdout.write(
         'INFO: ' + str(epochs) + ' epochs: ' + str(
