@@ -26,7 +26,7 @@ m = TGVModel(word_embedding_matrix, tag_embedding_matrix)
 # first 1530 are the trains
 # 1530: are the training data
 epochs = 0
-for e in [1, 1, 3, 5, 10, 15, 15, 25, 25, 25, 25, 25, 25]:
+for e in [1, 1, 3, 5, 10, 15, 15, 25]:
     # this should be improved
     m.model.fit([trigrams_e[:1530], word_e[:1530], tags_e[:1530]], desired[:1530], batch_size=batch_s, nb_epoch=e)
     epochs += e
