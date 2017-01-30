@@ -16,7 +16,7 @@ class TGVModel_tw:
         self.model = self.second_level_network(self.word_network, combining_layer=combining)
 
     # define first level model
-    def first_level_network(self, embedding_matrix, lstm_output_size=64):
+    def first_level_network(self, embedding_matrix, lstm_output_size=64, combining_layer=32):
         # load embeddings from the model
         # get vocabulary and weights
         model = Sequential()
@@ -30,22 +30,13 @@ class TGVModel_tw:
         model.add(Dropout(0.1))
         model.add(LSTM(lstm_output_size))
         model.add(Dropout(0.1))
-        return model
 
-    # concatenate the lower levels
-    def second_level_network(self, words, combining_layer=32):
-        # concatenate first layer models
-        cat_model = Sequential()
-        cat_model.add(Merge([words], mode='concat', concat_axis=1))
-        # produce the final model
-        final_model = Sequential()
-        final_model.add(cat_model)
         # add a layer before outputing yet
-        final_model.add(Dense(combining_layer, activation='sigmoid'))
-        final_model.add(Dense(1, activation='sigmoid'))
+        model.add(Dense(combining_layer, activation='sigmoid'))
+        model.add(Dense(1, activation='sigmoid'))
         # final evaluation is based on the cosine similarity
-        final_model.compile(loss='mean_squared_error', optimizer='adam')
-        return final_model
+        model.compile(loss='mean_squared_error', optimizer='adam')
+        return model
 
     # wrapper functions
     def predict(self, x):
