@@ -36,5 +36,5 @@ for e in [1, 1, 3, 5, 10, 15, 15, 25, 25, 25, 25, 25, 25]:
     prediction = m.predict([trigrams_e[1530:], word_e[1530:], tags_e[1530:]]) * 2 - 1
     prediction = prediction * 2 - 1
     sys.stdout.write(
-        'INFO: ' + str(epochs) + ' epochs: ' + str(
-            norm(prediction) / norm(golden_values) * cosine(prediction, golden_values)) + '\n')
+        'INFO: ' + str(epochs) + ' epochs: ' + str(norm(prediction) / norm(golden_values)) + ' * ' + str(
+            cosine(prediction, golden_values)) + '\n')
