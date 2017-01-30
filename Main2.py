@@ -9,6 +9,8 @@ import sys
 
 data_file = sys.argv[1]
 batch_s = int(sys.argv[2])
+combine = int(sys.argv[3])
+word_layer = int(sys.arv[4])
 
 with open(data_file, "rb") as f:
     word_embedding_matrix, tag_embedding_matrix, trigrams_e, word_e, tags_e, golden = pickle.load(f)
@@ -21,12 +23,12 @@ gol = [[e] for e in golden]
 desired = np.array(gol)
 
 # create a new model
-m = TGVModel(word_embedding_matrix, tag_embedding_matrix)
+m = TGVModel(word_embedding_matrix, tag_embedding_matrix,word=word_layer,combining=combine)
 
 # first 1530 are the trains
 # 1530: are the training data
 epochs = 0
-for e in [1, 1, 3, 5, 10, 15, 15, 25]:
+for e in [18, 1, 1, 1, 1]:
     # this should be improved
     m.model.fit([trigrams_e[:1530], word_e[:1530], tags_e[:1530]], desired[:1530], batch_size=batch_s, nb_epoch=e)
     epochs += e
