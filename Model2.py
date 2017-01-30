@@ -29,9 +29,9 @@ class TGVModel2:
                                     trainable=True)
         model.add(embedding_layer)
         # memory layer
-        model.add(Dropout(0.2))
+        model.add(Dropout(0.3))
         model.add(LSTM(lstm_output_size))
-        model.add(Dropout(0.2))
+        model.add(Dropout(0.3))
         model.add(Dense(int((2/3)*lstm_output_size), activation='sigmoid'))
         return model
 
@@ -46,9 +46,9 @@ class TGVModel2:
                                     trainable=True)
         model.add(embedding_layer)
         # memory layer
-        model.add(Dropout(0.2))
+        model.add(Dropout(0.3))
         model.add(LSTM(lstm_output_size))
-        model.add(Dropout(0.2))
+        model.add(Dropout(0.3))
         model.add(Dense(int((2/3)*lstm_output_size), activation='sigmoid'))
         return model
 
@@ -62,7 +62,6 @@ class TGVModel2:
         final_model.add(cat_model)
         # add a layer before outputing yet
         final_model.add(Dense(combining_layer, activation='sigmoid'))
-        final_model.add(Dense(int((2/3)*combining_layer), activation='sigmoid'))
         final_model.add(Dense(1, activation='sigmoid'))
         # final evaluation is based on the cosine similarity
         final_model.compile(loss='mean_squared_error', optimizer='adam')
