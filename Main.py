@@ -8,7 +8,7 @@ import pickle
 import sys
 
 data_file = sys.argv[1]
-batch_s = sys.argv[2]
+batch_s = int(sys.argv[2])
 
 with open(data_file, "rb") as f:
     word_embedding_matrix, tag_embedding_matrix, trigrams_e, word_e, tags_e, golden = pickle.load(f)
