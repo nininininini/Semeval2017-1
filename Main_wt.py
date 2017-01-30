@@ -16,7 +16,7 @@ with open(data_file, "rb") as f:
 # pad the sequences for more efficient processing
 tags_e = pad_sequences(tags_e)
 word_e = pad_sequences(word_e)
-trigrams_e = pad_sequences(trigrams_e)
+#trigrams_e = pad_sequences(trigrams_e)
 gol = [[e] for e in golden]
 desired = np.array(gol)
 

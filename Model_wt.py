@@ -13,7 +13,7 @@ class TGVModel_wt:
         #self.trigram_model = self.random_first_level_network(lstm_output_size=trigram)
         self.word_network = self.first_level_network(word_embedding_matrix, lstm_output_size=word)
         self.tags_network = self.first_level_network(tags_embedding_matrix, lstm_output_size=tags)
-        self.model = self.second_level_network(self.trigram_model, self.word_network, self.tags_network,
+        self.model = self.second_level_network(self.word_network, self.tags_network,
                                                combining_layer=combining)
 
     # define first level model

@@ -52,7 +52,7 @@ class TGVModel_tw:
     def second_level_network(self, grams, words, combining_layer=32):
         # concatenate first layer models
         cat_model = Sequential()
-        cat_model.add(Merge([grams, words, tags], mode='concat', concat_axis=1))
+        cat_model.add(Merge([grams, words], mode='concat', concat_axis=1))
         # produce the final model
         final_model = Sequential()
         final_model.add(cat_model)
