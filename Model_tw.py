@@ -10,10 +10,10 @@ class TGVModel_tw:
     # word_network/vocab
     # tags_network/vocab
     def __init__(self, word_embedding_matrix, tags_embedding_matrix, trigram=25, word=64, tags=10, combining=32):
-        #self.trigram_model = self.random_first_level_network(lstm_output_size=trigram)
-        self.word_network = self.first_level_network(word_embedding_matrix, lstm_output_size=word)
-        #self.tags_network = self.first_level_network(tags_embedding_matrix, lstm_output_size=tags)
-        self.model = self.second_level_network(self.word_network, combining_layer=combining)
+        # self.trigram_model = self.random_first_level_network(lstm_output_size=trigram)
+        self.model = self.first_level_network(word_embedding_matrix, lstm_output_size=word)
+        # self.tags_network = self.first_level_network(tags_embedding_matrix, lstm_output_size=tags)
+        # self.model = self.second_level_network(self.word_network, combining_layer=combining)
 
     # define first level model
     def first_level_network(self, embedding_matrix, lstm_output_size=64, combining_layer=32):
