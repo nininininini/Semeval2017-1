@@ -10,7 +10,7 @@ import sys
 data_file = sys.argv[1]
 batch_s = int(sys.argv[2])
 combine = int(sys.argv[3])
-word_layer = int(sys.arv[4])
+word_layer = int(sys.argv[4])
 
 with open(data_file, "rb") as f:
     word_embedding_matrix, tag_embedding_matrix, trigrams_e, word_e, tags_e, golden = pickle.load(f)
