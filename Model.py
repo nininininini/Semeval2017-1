@@ -28,9 +28,9 @@ class TGVModel:
                                     trainable=True)
         model.add(embedding_layer)
         # memory layer
-        model.add(Dropout(0.1))
+        model.add(Dropout(0.2))
         model.add(LSTM(lstm_output_size))
-        model.add(Dropout(0.1))
+        model.add(Dropout(0.2))
         return model
 
     # define random embedded layer
@@ -44,9 +44,9 @@ class TGVModel:
                                     trainable=True)
         model.add(embedding_layer)
         # memory layer
-        model.add(Dropout(0.1))
+        model.add(Dropout(0.2))
         model.add(LSTM(lstm_output_size))
-        model.add(Dropout(0.1))
+        model.add(Dropout(0.2))
         return model
 
     # concatenate the lower levels
