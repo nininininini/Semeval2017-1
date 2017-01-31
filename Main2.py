@@ -11,6 +11,7 @@ data_file = sys.argv[1]
 batch_s = int(sys.argv[2])
 combine = int(sys.argv[3])
 word_layer = int(sys.argv[4])
+testing_data = sys.argv[5]
 
 with open(data_file, "rb") as f:
     word_embedding_matrix, tag_embedding_matrix, trigrams_e, word_e, tags_e, golden = pickle.load(f)
@@ -23,7 +24,7 @@ gol = [[e] for e in golden]
 desired = np.array(gol)
 
 # create a new model
-m = TGVModel(word_embedding_matrix, tag_embedding_matrix,word=word_layer,combining=combine)
+m = TGVModel(word_embedding_matrix, tag_embedding_matrix, word=word_layer, combining=combine)
 
 # first 1530 are the trains
 # 1530: are the training data
@@ -42,3 +43,14 @@ for e in [18, 1, 1, 1, 1]:
                                                                                                          cosine(
                                                                                                              prediction,
                                                                                                              golden_values)) + '\n')
+
+with open(testing_data, "rb") as f:
+    ids, cash_tags, trigrams_test, word_test, tags_test = pickle.load(f)
+
+trigrams_test = pad_sequences(trigrams_test)
+word_test = pad_sequences(word_test)
+tags_test = pad_sequences(tags_test)
+
+# final evaluation
+prediction = m.predict([trigrams_test, word_test, tags_test])
+prediction = prediction * 2 - 1
