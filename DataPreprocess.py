@@ -77,7 +77,7 @@ with open(training_data) as data:
 with open(output_file, "wb") as f:
     pickle.dump((word_embedding_matrix, tag_embedding_matrix, trigrams_e, word_e, tags_e, golden), f)
 
-with open(testing_data, 'rb') as f:
+with open(testing_data, 'r') as f:
     test_data = json.load(f)
     ids = [x['id'] for x in test_data]
     cash_tags = [x['cashtag'] for x in test_data]
