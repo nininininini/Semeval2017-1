@@ -12,6 +12,7 @@ batch_s = int(sys.argv[2])
 combine = int(sys.argv[3])
 word_layer = int(sys.argv[4])
 testing_data = sys.argv[5]
+output_data = sys.argv[6]
 
 with open(data_file, "rb") as f:
     word_embedding_matrix, tag_embedding_matrix, trigrams_e, word_e, tags_e, golden = pickle.load(f)
@@ -54,3 +55,14 @@ tags_test = pad_sequences(tags_test)
 # final evaluation
 prediction = m.predict([trigrams_test, word_test, tags_test])
 prediction = prediction * 2 - 1
+
+f2 = open('test2.json', 'w')
+output = []
+import json
+
+for i in range(len(ids)):
+    data = {'id': ids[i],'cashtag': cash_tags[i],'sentiment score': prediction[i]}
+    output.append(data)
+
+json.dump(output, f2, indent=4, sort_keys=True, separators=(',', ':'))
+f2.close()

@@ -83,7 +83,7 @@ with open(testing_data, 'r') as f:
     cash_tags = [x['cashtag'] for x in test_data]
     spans = [x['spans'] for x in test_data]
     # analyse everything
-    tags_spans = [[A.udpipe_analysis(s).split() for s in span] for span in spans]
+    tags_spans = [A.udpipe_analysis(s).split() for s in spans]
     # concatenate the sublists in training examples
     tags_spans = [[t for sublist in lists for t in sublist] for lists in tags_spans]
     # extract tags indices in the vocabulary
