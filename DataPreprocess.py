@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from Functions import UDpipe_analyser
 from Functions import load_gensim_w2v
 import regex as re

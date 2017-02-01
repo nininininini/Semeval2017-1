@@ -6,6 +6,7 @@ import numpy as np
 
 
 # Description of the used model
+# This model has an extra convolution layer
 class TGVModel:
     # word_network/vocab
     # tags_network/vocab
@@ -28,9 +29,10 @@ class TGVModel:
                                     trainable=True)
         model.add(embedding_layer)
         # memory layer
-        model.add(Dropout(0.2))
+        model.add(Dropout(0.3))
         model.add(LSTM(lstm_output_size))
-        model.add(Dropout(0.2))
+        model.add(Dropout(0.3))
+        model.add(Dense(int((2/3)*lstm_output_size), activation='sigmoid'))
         return model
 
     # define random embedded layer
@@ -44,9 +46,10 @@ class TGVModel:
                                     trainable=True)
         model.add(embedding_layer)
         # memory layer
-        model.add(Dropout(0.2))
+        model.add(Dropout(0.3))
         model.add(LSTM(lstm_output_size))
-        model.add(Dropout(0.2))
+        model.add(Dropout(0.3))
+        model.add(Dense(int((2/3)*lstm_output_size), activation='sigmoid'))
         return model
 
     # concatenate the lower levels
